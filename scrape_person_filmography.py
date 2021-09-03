@@ -1,7 +1,9 @@
 import json
 import ssl
 from urllib.request import Request, urlopen
+import bs4
 from bs4 import BeautifulSoup
+from bs4  import NavigableString
 import pandas as pd
 from urllib.parse import urlencode
 import urllib
@@ -21,12 +23,22 @@ def get_movie_info(bs4_result, person, id, dataframe):
         year = year.strip()
         title = movie.find('a').contents[0]
         title = title.strip()
+        try:
+            episode_count = movie.find("a", {'href':"#"})['data-n']
+        except:
+            episode_count = len(movie.findAll('div', {'class': 'filmo-episodes'}))
         link = movie.find('a')['href']
         imdb_link = 'https://www.imdb.com' + link
         add_info = movie.get_text()
         add_info = add_info.strip()
-        episode_count = len(movie.findAll('div', {'class': 'filmo-episodes'}))
-        dataframe.loc[len(dataframe.index)] = [person, credit_type, year, title, imdb_link, episode_count, add_info]
+        for quote in movie.find_all('div', 'filmo-episodes'):
+            quote.decompose()
+        for quote in movie.find_all('span','year_column'):
+            quote.decompose()
+        for quote in movie.find_all('a'):
+            quote.decompose()
+        media_type = movie.text.strip() 
+        dataframe.loc[len(dataframe.index)] = [person, credit_type, year, title, imdb_link, media_type, episode_count, add_info]
 
 def get_person_filmography(dataframe, row, column):
     z = row.name
@@ -38,7 +50,7 @@ def get_person_filmography(dataframe, row, column):
     get_movie_info(soup, person, 'filmo-row even', filmography)
 
 ####
-filmography = pd.DataFrame(columns=['person','credit_type','year','title','imdb_link','episode_count','add_info'])
+filmography = pd.DataFrame(columns=['person','credit_type','year','title','imdb_link','media_type','total_episode_count','add_info'])
 performers = pd.read_csv("actors.csv")
 performers.apply(lambda row: get_person_filmography(performers, row, "imdb_link"), axis=1)
 
