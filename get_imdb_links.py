@@ -21,6 +21,8 @@ def get_web_page_content(url):
   return soup
 
 def get_href(person):
+  person = person.split('(')[0]
+  person = person.strip()
   edited_name = urllib.parse.quote_plus(person)
   search_url = 'https://www.imdb.com/find?q=' + edited_name + '&s=nm&exact=true&ref_=fn_nm_ex'
   soup = get_web_page_content(search_url)
