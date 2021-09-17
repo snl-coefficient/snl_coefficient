@@ -52,17 +52,6 @@ def filter_out_credit_types(dataframe, row, column):
         else:
             pass
 
-def filter_out_credit_types(dataframe, row, column):
-    credit_type = dataframe["credit_type"].values[row.name]
-    credit_type = credit_type.split("-")[0]
-    interesting_credits = ['writer','director','producer','actor','actress','self']
-    for role in interesting_credits:
-        if credit_type.startswith(role):
-            dataframe.at[row.name,column]= "keep_credit"
-            dataframe.at[row.name,"credit_type"] = credit_type
-        else:
-            pass
-
 def add_end_years(dataframe, row, column):
     dates = dataframe[column].values[row.name]
     dates = str(dates).strip()
