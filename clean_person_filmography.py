@@ -144,13 +144,10 @@ filmography['snl_alums'] = ''
 filmography['credits_count'] = ''
 filmography['snl_alums_count'] = ''
 filmography['credits_count'] = filmography.groupby('imdb_link')['imdb_link'].transform('count')
-filmography.to_csv("cast_count.csv", index=False)
-
 
 cast_df = pd.DataFrame({'imdb_link':filmography.imdb_link.unique()})
 cast_df['snl_alums'] = [list(set(filmography['person'].loc[filmography['imdb_link'] == x['imdb_link']])) for _, x in cast_df.iterrows()]
 cast_df['cast_count'] = cast_df['snl_alums'].str.len()
-cast_df.to_csv("cast_df.csv", index=True)
 
 cols_to_keep = ['title','imdb_link','credits_count','cast_count']
 filmography= filmography.filter(items=cols_to_keep)
