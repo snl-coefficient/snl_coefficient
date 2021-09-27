@@ -9,10 +9,8 @@ from urllib.parse import urlencode
 import urllib
 
 #######
-performers = pd.read_csv("actors.csv")
+performers = pd.read_csv("snl_alums.csv")
 performers['imdb_link'] = ''
-writers = pd.read_csv("writers.csv")
-writers['imdb_link'] = ''
 
 def get_web_page_content(url):
   req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
@@ -32,16 +30,14 @@ def get_href(person):
       href = a['href']
       href = 'https://www.imdb.com' + href
       return href
-
 def get_person_imdb(dataframe, row, column):
     z = row.name
     person = dataframe["person"].values[z]
     print(person)
     imdb_link = get_href(person)
     dataframe.at[z,column]= imdb_link
+    dataframe.at[z,'person']= person
+###
 
 performers.apply(lambda row: get_person_imdb(performers, row, "imdb_link"), axis=1)
-writers.apply(lambda row: get_person_imdb(writers, row, "imdb_link"), axis=1)
-
-performers.to_csv('actors.csv', index=False)
-writers.to_csv('writers.csv', index=False)
+performers.to_csv('snl_alums.csv', index=False)

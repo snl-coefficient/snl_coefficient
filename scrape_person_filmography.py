@@ -51,7 +51,7 @@ def get_person_filmography(dataframe, row, column):
 
 ####
 filmography = pd.DataFrame(columns=['person','credit_type','year','title','imdb_link','media_type','total_episode_count','add_info'])
-performers = pd.read_csv("actors.csv")
+performers = pd.read_csv("snl_alums.csv")
 performers.apply(lambda row: get_person_filmography(performers, row, "imdb_link"), axis=1)
 
 filmography.to_csv("performers_filmography.csv", index=False)

@@ -42,10 +42,13 @@ def get_movie_details(dataframe, row, column):
         num_episodes = 0
     dataframe.at[z,"num_episodes"] = num_episodes
     print(url, genres, stars, media_type, "episodes: ", num_episodes)    
+
 #######
 movies = pd.read_csv("filmography_list.csv")
 movies['genres'] = ''
 movies['stars'] = ''
+#movies['creators'] = ''
+#movies['directors'] = ''
 movies['media_type'] = ''
 movies['num_episodes'] = ''
 movies.apply(lambda row: get_movie_details(movies, row, "imdb_link"), axis=1)

@@ -9,6 +9,7 @@ import numpy as np
 import re
 from string import digits
 
+####
 def get_crew_list(dataframe, row):
     try:
         movie = dataframe['imdb_link'].values[row.name]
@@ -90,7 +91,7 @@ def fill_all_years(dataframe, row):
           dataframe.at[row.name,'year_end'] = str(max(only_numbers))
 
 #######
-performers = pd.read_csv("actors.csv")
+performers = pd.read_csv("snl_alums.csv")
 filmography_orig = pd.read_csv("performers_filmography.csv")
 
 print("adding end and start years")
@@ -115,6 +116,7 @@ print("number of filmography credits: ", filmography_credits.shape[0])
 
 snl_starts = {}
 snl_starts = performers.set_index('person').to_dict()['year_start']
+print(snl_starts)
 
 snl_ends = {}
 snl_ends = performers.set_index('person').to_dict()['year_end']
@@ -136,7 +138,7 @@ filmography_cleaned['imdb_link'] = filmography_cleaned['imdb_link'].str.split("?
 filmography_cleaned.to_csv("performers_filmography_cleaned.csv", index=False)
 print("number of filmography credits: ", filmography_cleaned.shape[0])
 
-cols_to_keep = ['person','credit_type','title','imdb_link']
+cols_to_keep = ['person','credit_type','media_type','title','imdb_link']
 filmography = filmography_cleaned.filter(items=cols_to_keep)
 filmography.to_csv("person_credits_title.csv", index=False)
 
@@ -149,7 +151,7 @@ cast_df = pd.DataFrame({'imdb_link':filmography.imdb_link.unique()})
 cast_df['snl_alums'] = [list(set(filmography['person'].loc[filmography['imdb_link'] == x['imdb_link']])) for _, x in cast_df.iterrows()]
 cast_df['cast_count'] = cast_df['snl_alums'].str.len()
 
-cols_to_keep = ['title','imdb_link','credits_count','cast_count']
+cols_to_keep = ['title','media_type','imdb_link','credits_count','cast_count']
 filmography= filmography.filter(items=cols_to_keep)
 filmography = filmography.drop_duplicates(subset="imdb_link")
 

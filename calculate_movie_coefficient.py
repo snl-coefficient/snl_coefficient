@@ -29,3 +29,6 @@ for index, row in snl_movie_credits.iterrows():
 snl_coefficients = {}
 snl_coefficients = performers.set_index('person').to_dict()['coefficient']
 roles = {'writer':1, 'director':1, 'producer':1,'actor':1,'actress':1, 'self':1}
+
+
+# snl_films = ['The Blues Brothers','Wayne's World','Coneheads','Wayne's World 2','It's Pat','Stuart Saves His Family','Blues Brothers 2000','A Night at the Roxbury','Superstar','The Ladies Man','MacGruber']
