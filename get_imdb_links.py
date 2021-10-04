@@ -9,7 +9,7 @@ from urllib.parse import urlencode
 import urllib
 
 #######
-performers = pd.read_csv("snl_alums.csv")
+performers = pd.read_csv("snl_cast_crew.csv")
 performers['imdb_link'] = ''
 
 def get_web_page_content(url):
@@ -19,24 +19,26 @@ def get_web_page_content(url):
   return soup
 
 def get_href(person):
-  person = person.split('(')[0]
-  person = person.strip()
+  person_name = person.split('(')[0]
+  person_name = person_name.strip()
   edited_name = urllib.parse.quote_plus(person)
   search_url = 'https://www.imdb.com/find?q=' + edited_name + '&s=nm&exact=true&ref_=fn_nm_ex'
   soup = get_web_page_content(search_url)
   for a in soup.find_all('a', href=True):
     link = a.string
-    if link == person:
+    if link == person_name:
       href = a['href']
       href = 'https://www.imdb.com' + href
       return href
+      break
+      
 def get_person_imdb(dataframe, row, column):
     z = row.name
     person = dataframe["person"].values[z]
     print(person)
     imdb_link = get_href(person)
     dataframe.at[z,column]= imdb_link
-    dataframe.at[z,'person']= person
+    #dataframe.at[z,'person']= person
 ###
 
 performers.apply(lambda row: get_person_imdb(performers, row, "imdb_link"), axis=1)

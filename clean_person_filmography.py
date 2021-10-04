@@ -45,7 +45,7 @@ def filter_out_start_year(dataframe, dict1, dict2, column):
 def filter_out_credit_types(dataframe, row, column):
     credit_type = dataframe["credit_type"].values[row.name]
     credit_type = credit_type.split("-")[0]
-    interesting_credits = ['writer','director','producer','actor','actress','self']
+    interesting_credits = ['writer','director','producer','actor','actress','self','archive_footage']
     for role in interesting_credits:
         if credit_type.startswith(role):
             dataframe.at[row.name,column]= "keep_credit"
