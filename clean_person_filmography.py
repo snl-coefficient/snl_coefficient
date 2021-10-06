@@ -138,7 +138,7 @@ filmography_cleaned['imdb_link'] = filmography_cleaned['imdb_link'].str.split("?
 filmography_cleaned.to_csv("performers_filmography_cleaned.csv", index=False)
 print("number of filmography credits: ", filmography_cleaned.shape[0])
 
-cols_to_keep = ['person','credit_type','media_type','title','imdb_link']
+cols_to_keep = ['person','credit_type','media_type','title','imdb_link','total_episode_count']
 filmography = filmography_cleaned.filter(items=cols_to_keep)
 filmography.to_csv("person_credits_title.csv", index=False)
 

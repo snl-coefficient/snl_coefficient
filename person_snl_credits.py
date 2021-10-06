@@ -33,8 +33,8 @@ def get_snl_counts(dataframe, row):
     if writer_credit.shape[0] != 0:
         list = writer_credit["total_episode_count"].tolist()
         num_episodes_writer = list[0]
-    dataframe.at[row.name,'num_epsiodes_actor'] = num_episodes_actor	
-    dataframe.at[row.name,'num_epsiodes_writer'] = num_episodes_writer
+    dataframe.at[row.name,'num_episodes_actor'] = num_episodes_actor	
+    dataframe.at[row.name,'num_episodes_writer'] = num_episodes_writer
     print(person, num_episodes_actor, num_episodes_writer)		
     
 actors.apply(lambda row: get_snl_counts(actors, row), axis=1)

@@ -17,14 +17,15 @@ for index, row in snl_movie_data.iterrows():
     # gets SNL-related information from the snl_movie_credits
     imdb_link = snl_movie_credits['imdb_link'].values[index]
     credits_count = snl_movie_credits['credits_count'].values[index]
-    cast_count = len(credits_count)
+    cast_count = snl_movie_credits['cast_count'].values[index]
     snl_alums = snl_movie_credits['snl_alums'].values[index]
     person_values = []
     # get IMDB information from snl_movie_data 
     movie_info = snl_movie_data[snl_movie_data['imdb_link']==imdb_link]
     #cast = movie_info['stars'].values[index]
     principal_people = movie_info['principal_people'].values[index]
-    num_episdoes = movie_info['num_episodes'].values[index]
+    num_episodes = int(float(movie_info['num_episodes'].values[index]))
+    #print(num_episodes)
     # create a dataframe of the roles strictly for that movie 
     pct = person_credits_title[person_credits_title['imdb_link']==imdb_link]
     pct.to_csv("filtered_movie_credits_storage.csv", index=False)
@@ -32,21 +33,23 @@ for index, row in snl_movie_data.iterrows():
     # now iterate over the roles dataframe
     for index, row in movie_roles.iterrows():
         person = movie_roles['person'].values[index]
-        person_role = movie_roles['role'].values[index]
-        person_num_episodes = movie_roles['num_episodes'].values[index] # how do i calculate this
+        person_role = movie_roles['credit_type'].values[index]
+        person_num_episodes = int(float(movie_roles['total_episode_count'].values[index]))
         if num_episodes != 0:
+            print(person_num_episodes)
+            print(num_episodes)
             percent_episodes = person_num_episodes/num_episodes
         else: 
             percent_episodes = 1
         person_coefficient = snl_coefficients.get(person)
         if person in principal_people:
             role_coefficient = 2
-            value = person_coefficient * role_coefficient * percent_epsiodes
+            value = person_coefficient * role_coefficient * percent_episodes
         elif person_role == 'producer':
                 role_coefficient = 2
-                value = person_coefficient * role_coefficient * percent_epsiodes
+                value = person_coefficient * role_coefficient * percent_episodes
         else:
-            value = person_coefficient * percent_epsiodes
+            value = person_coefficient * percent_episodes
         person_values.append(value)
     sum_of_values= sum(person_values)
     if imdb_link in snl_films: 

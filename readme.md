@@ -9,7 +9,8 @@
 * **clean_person_filmography.py** cleans **performers_filmography.csv** to only include media produced during/after the performers' stint on SNL, and saves it as **performers_filmography_cleaned.csv**, **filmography_credits.csv**, and **person_credits_title.csv**, and **snl_movies_credits.csv**.
 * **person_snl_credits.py** uses **performers_filmography_cleaned.csv** to create **only_snl_filmography.csv**, which only includes SNL alum info related to *Saturday Night Live* specifically. It then calculates the number of episodes with writing and acting credits for each person, adding those columns to **snl_alums.csv**.
 * **calculate_person_coefficient.py** uses **snl_alums.csv** to calculate a coefficient for each person and saves it as a column in **performers_with_coefficient.csv**. 
-* **scrape_movie_data.py** uses **snl_movies_credits.csv** to scrape the IMDB info for each piece of SNL-related media and saves it as **snl_movies_data.csv**.  
+* **scrape_movie_data.py** uses **snl_movies_credits.csv** to scrape the IMDB info for each piece of SNL-related media and saves it as **snl_movies_data.csv**. This script has a time delay of 2 seconds between scraping, and also saves to **active-movie-data-scrape.csv** while the script runs in case it crashes.
+* **clean_movie_data.py** uses **snl_movie_data.csv** to clean for the media type information. 
 * **calculate_movie_coefficient.py** uses **snl_movie_credits.csv**, **snl_movie_data.csv**, **person_credits_title.csv**, and **performers_with_coefficient.csv** to calculate the movie coefficient, and saves it as a column in **snl_movie_coefficient.csv**.
 * snl_coefficient.py -- delete?
 * snl_coefficient2.py -- delete?
@@ -25,5 +26,7 @@
 * **only_snl_filmography.csv**: person,credit_type,year,title,imdb_link,media_type,total_episode_count,add_info,year_start,year_end,keep?
 * **performers_with_coefficient.csv**:person,year_start,year_end,num_seasons_total,num_seasons_writer,num_seasons_headwriter,num_seasons_actor,num_seasons_rep,num_seasons_featured,num_seasons_middle,num_seasons_weekend_update,num_episodes_weekend_updates,best_of,num_episodes_hosted,imdb_link,num_episodes_writer,num_episodes_actor,num_epsiodes_actor,num_epsiodes_writer,coefficient,num_episodes_other
 * **person-title-imdb_link.csv**: person,title,imdb_link
-* **snl_movie_data.csv**: 
+* **raw_snl_movie_data.csv**: 
+* **running_snl_movies_data.csv**: 
+* **cleaned_snl_movie_data.csv**
 * **snl_movie_coefficient.csv**:

@@ -49,12 +49,13 @@ def get_coefficient(dataframe, row, column):
         B = num_seasons_rep/num_seasons 
         C = (num_seasons_featured + num_seasons_middle)/num_seasons
         E = num_seasons_weekend_update/num_seasons
-        F = num_episodes_weekend_update/num_episodes
+        F = num_episodes_weekend_update/913#num_episodes
         I = num_seasons_headwriter/num_seasons
         J = num_episodes_writer/913
         K = num_episodes_actor/913
         host_coefficient = int(host + best_of)
-        coefficient = host_coefficient + (.1*E) + (.1*F) + (.1*I) + .25*(other + (.46*K)+(.44*J)) + .25*((.2*A)+(.36* B)+(.34*C))
+        coefficient = host_coefficient + (.15*F) + (.15*I) + .25*(other + (.46*K)+(.44*J)) + .25*((.2*A)+(.36* B)+(.34*C)) #+ (.1*E)
+        #print(person, num_seasons, coefficient, A, B, C, E, F, I, J, K)
         dataframe.at[row.name,column] = coefficient
     except: 
         print(person, "problem")
