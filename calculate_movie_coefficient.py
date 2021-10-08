@@ -3,7 +3,7 @@ import csv
 
 ####
 snl_movie_credits = pd.read_csv("snl_movies_credits.csv")
-snl_movie_data = pd.read_csv("snl_movies_data.csv")
+snl_movie_data = pd.read_csv("cleaned_snl_movie_data.csv")
 person_credits_title = pd.read_csv("person_credits_title.csv")
 snl_movie_credits['movie_coefficient'] = ''
 performers = pd.read_csv("performers_with_coefficient.csv")
@@ -15,16 +15,16 @@ snl_films = ['https://www.imdb.com/title/tt0080455/',"https://www.imdb.com/title
 
 for index, row in snl_movie_data.iterrows():
     # gets SNL-related information from the snl_movie_credits
-    imdb_link = snl_movie_credits['imdb_link'].values[index]
-    credits_count = snl_movie_credits['credits_count'].values[index]
-    cast_count = snl_movie_credits['cast_count'].values[index]
-    snl_alums = snl_movie_credits['snl_alums'].values[index]
+    imdb_link = snl_movie_data['imdb_link'].values[index]
+    principal_people = snl_movie_data['principal_people'].values[index]
+    num_episodes = int(float(snl_movie_data['num_episodes'].values[index]))
+    movie_info = snl_movie_credits[snl_movie_credits['imdb_link']==imdb_link]
+    credits_count = movie_info['credits_count'].values[0]
+    cast_count = movie_info['cast_count'].values[0]
+    snl_alums = movie_info['snl_alums'].values[0]
     person_values = []
     # get IMDB information from snl_movie_data 
-    movie_info = snl_movie_data[snl_movie_data['imdb_link']==imdb_link]
-    #cast = movie_info['stars'].values[index]
-    principal_people = movie_info['principal_people'].values[index]
-    num_episodes = int(float(movie_info['num_episodes'].values[index]))
+    #cast = movie_info['stars'].values[index
     #print(num_episodes)
     # create a dataframe of the roles strictly for that movie 
     pct = person_credits_title[person_credits_title['imdb_link']==imdb_link]
@@ -34,14 +34,20 @@ for index, row in snl_movie_data.iterrows():
     for index, row in movie_roles.iterrows():
         person = movie_roles['person'].values[index]
         person_role = movie_roles['credit_type'].values[index]
-        person_num_episodes = int(float(movie_roles['total_episode_count'].values[index]))
+        person_num_episodes = movie_roles['total_episode_count'].values[index]
+        print(person, person_role, person_num_episodes)
+        try: 
+            person_num_episodes = int(person_num_episodes.replace(',' , ''))
+        except:
+            continue
         if num_episodes != 0:
-            print(person_num_episodes)
-            print(num_episodes)
+            print("person_num_episodes: ", person_num_episodes)
+            print("num_episodes: ", num_episodes)
             percent_episodes = person_num_episodes/num_episodes
         else: 
             percent_episodes = 1
         person_coefficient = snl_coefficients.get(person)
+        print(person_coefficient)
         if person in principal_people:
             role_coefficient = 2
             value = person_coefficient * role_coefficient * percent_episodes
@@ -50,12 +56,15 @@ for index, row in snl_movie_data.iterrows():
                 value = person_coefficient * role_coefficient * percent_episodes
         else:
             value = person_coefficient * percent_episodes
+        print("value: ", value)
         person_values.append(value)
     sum_of_values= sum(person_values)
+    print("sum_of_values: ", sum_of_values)
     if imdb_link in snl_films: 
         sum_of_values += 5
     movie_coefficient = sum_of_values/cast_count
     snl_movie_data.at[index,"movie_coefficient"] = movie_coefficient
+    print(imdb_link, movie_coefficient)
     
 snl_movie_data.to_csv("snl_movie_coefficient.csv", index=False)
 

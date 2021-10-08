@@ -1,36 +1,78 @@
 # get a list of media types from making a set of of all the values in all the lists in that column 
-# and then see what media types you get 
-# and then move the media type over to a new "media_type" column 
-list_of_info = dataframe[column].values[row.name]
-media_types = []
-for media in media_types:
-    if media in list_of_info: 
-        media_type = media 
-    else:
-        media_type = "Film"
-        
-if string contains dates: #(whatever i do to get years from another script):
-    start_year = 
-    end_year = 
+# get a list of production companies from making a set of all the values in all the lists in that column 
 
+import pandas as pd 
+import re 
+import ast
+import numpy as np
 
-for item in list_of_info:
-    item = item.strip()
-    non_number = re.compile(r'[^\d]+')
-    new_item = non_number.sub('',item)
-    new_item = re.sub('[()]', '', new_item)
-    revised_list.append(new_item)
-    revised_list = [x.strip() for x in revised_list if x.strip()]
-    revised_list = [i for i in revised_list if i]
-    only_numbers = []
+def has_numbers(inputString):
+     return any(char.isdigit() for char in inputString)
+
+dataframe = pd.read_csv("/Users/estene/Documents/GitHub/snl_coefficient/data/running_snl_movies_data.csv")
+mediums = dataframe['media_type'].to_list()
+#dataframe['media_type'] = dataframe['media_type'].astype(float)
+all_mediums = []
+for index, row in dataframe.iterrows(): 
+    list_of_info = dataframe['media_type'].values[row.name]
+    list_of_info = ast.literal_eval(list_of_info)
+    for elem in list_of_info:
+        if has_numbers(elem) == False:
+            all_mediums.append(elem)
+#print(list(set(all_mediums))) #use this list to create a mediums list 
+all_mediums = list(set(all_mediums))
+med_txt = open('data/mediums.txt', 'w')
+for i in all_mediums:
+    med_txt.write(str(i) + "\n")
+med_txt.close()
+
+production_companies = dataframe['production_companies'].to_list()
+#dataframe['media_type'] = dataframe['media_type'].astype(float)
+all_production_companies = []
+for index, row in dataframe.iterrows(): 
+    prodcomp = dataframe['production_companies'].values[row.name]
+    try:
+        prodcomp = ast.literal_eval(prodcomp)
+        for elem in prodcomp:
+            all_production_companies.append(elem)
+    except:
+        pass
+all_production_companies = list(set(all_production_companies)) #use this list to create a mediums list 
+prod_txt = open('data/production_companies.txt', 'w')
+for i in all_production_companies:
+    prod_txt.write(str(i) + "\n")
+prod_txt.close()
+
+####
+mediums = ['TV Mini Series','Video Game','TV Movie','Podcast Series','TV Special','Video','TV Short','TV Series']
+
+dataframe['medium'] = ''
+dataframe['year_start'] = ''
+dataframe['year_end'] = ''
+
+for index, row in dataframe.iterrows():
+    list_of_info = dataframe['media_type'].values[row.name]
+    list_of_info = ast.literal_eval(list_of_info)
+    revised_list = []
+    crossover = [i for i in list_of_info if i in mediums]
+    if len(crossover) < 0: 
+        #string1="".join(str(elem) for elem in list1)
+        dataframe.at[row.name,'medium'] = crossover 
+    else: 
+        dataframe.at[row.name, 'medium'] = ['Film']
+    for item in list_of_info:
+        item = item.strip()
+        non_number = re.compile(r'[^\d]+')
+        new_item = non_number.sub('',item)
+        revised_list.append(new_item)
+    years_list = []
     for item in revised_list:
-        split_strings = [item[index : index + 4] for index in range(0, len(item), n)]
-        for item in split_strings:
-            if len(item) == 4:
-                item = int(item)
-                only_numbers.append(item)
-      if len(only_numbers) != 0:
-          dataframe.at[row.name,'year_start'] = str(min(only_numbers))
-          dataframe.at[row.name,'year_end'] = str(max(only_numbers))
-
-#[word for line in mylist for word in line.split()]
+        out = [(item[i:i+4]) for i in range(0, len(item), 4)]
+        for year in out:
+            if len(year) == 4 and int(year) > 1414:
+                years_list.append(year)
+    if len(years_list) != 0:
+        dataframe.at[row.name,'year_start'] = str(min(years_list))
+        dataframe.at[row.name,'year_end'] = str(max(years_list))
+        
+dataframe.to_csv("cleaned_snl_movie_data.csv", index=False)
