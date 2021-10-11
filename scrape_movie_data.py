@@ -12,6 +12,7 @@ import csv
 #######
 def get_web_page_content(url):
   req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+  ssl._create_default_https_context = ssl._create_unverified_context
   webpage = urlopen(req).read()
   soup = BeautifulSoup(webpage, 'html.parser')
   return soup
@@ -60,7 +61,7 @@ def get_movie_details(dataframe, row, column):
         try:
             principal_people = []
             creators = soup.find_all("ul",{"class":"ipc-inline-list ipc-inline-list--show-dividers ipc-inline-list--inline ipc-metadata-list-item__list-content baseAlt"})
-            for creator in creators: 
+            for creator in creators:
                 people = creator.find_all("a")
                 for person in people:
                     indiv = person.get_text(strip=False)
@@ -81,7 +82,7 @@ def get_movie_details(dataframe, row, column):
         dataframe.at[z,"production_companies"]
         row = [url, genres, stars, media_type, num_episodes, principal_people, production_companies]
         writer.writerow(row)
-        time.sleep(2)  
+        time.sleep(2)
 
 #######
 movies = pd.read_csv("snl_movies_credits.csv")
@@ -93,7 +94,7 @@ movies['num_episodes'] = ''
 movies['principal_people'] = '' #should see if i can stop it from doing the same as cast
 movies['production_companies'] = ''
 header = ['imdb_link', 'genres', 'stars', 'media_type', 'num_episodes','principal_people','production_companies']
-with open("data/running_snl_movies_data.csv", 'a+') as f: 
+with open("data/running_snl_movies_data.csv", 'a+') as f:
     writer = csv.writer(f)
     #writer.writerow(header)
     movies.apply(lambda row: get_movie_details(movies, row, "imdb_link"), axis=1)
