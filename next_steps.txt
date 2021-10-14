@@ -1,0 +1,3 @@
+can i merge running_snl_movie_coefficient with something that contains relevant info (probably snl_movies_credits and movie_data) so I can visualize things?
+
+can i filter the performers_filmography_cleaned to only include properties that have 2 or more SNl alums involved? (https://towardsdatascience.com/tutorial-network-visualization-basics-with-networkx-and-plotly-and-a-little-nlp-57c9bbb55bb9)

@@ -1,23 +1,23 @@
-TV Series
-Video Game
-Not RatedNot Rated
-TV Movie
-Video
 PGPG
-XX
-TV Short
-EE
-TV-YTV-Y
-Podcast Series
+TV Movie
 TV-GTV-G
-TT
-MM
-UnratedUnrated
-K-AK-A
-GG
 RR
+GG
+K-AK-A
 TV-PGTV-PG
 TV Special
+Video Game
 TV Mini Series
-ApprovedApproved
 TV-MATV-MA
+ApprovedApproved
+TV Short
+TV Series
+EE
+TV-YTV-Y
+TT
+MM
+Podcast Series
+Video
+UnratedUnrated
+Not RatedNot Rated
+XX

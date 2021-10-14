@@ -86,7 +86,7 @@ def get_movie_details(dataframe, row, column):
 
 #######
 movies = pd.read_csv("snl_movies_credits.csv")
-movies2 = pd.read_csv("data/running_snl_movies_data.csv")
+movies2 = pd.read_csv("data/running_snl_movies_data.csv",error_bad_lines=False)
 movies['genres'] = ''
 movies['stars'] = ''
 movies['media_type'] = ''
