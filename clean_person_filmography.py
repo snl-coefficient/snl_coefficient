@@ -134,6 +134,7 @@ filmography_years['keep?'] = ''
 filmography_years  =filmography_years.reset_index(drop=True) 
 filter_out_start_year(filmography_years, snl_starts, snl_ends, 'keep?')
 filmography_cleaned = filmography_years[filmography_years['keep?']=='keep_year']
+filmography_cleaned.drop('keep?', axis=1, inplace=True)
 filmography_cleaned['imdb_link'] = filmography_cleaned['imdb_link'].str.split("?").str[0]
 filmography_cleaned.to_csv("performers_filmography_cleaned.csv", index=False)
 print("number of filmography credits: ", filmography_cleaned.shape[0])
@@ -150,11 +151,12 @@ filmography['credits_count'] = filmography.groupby('imdb_link')['imdb_link'].tra
 cast_df = pd.DataFrame({'imdb_link':filmography.imdb_link.unique()})
 cast_df['snl_alums'] = [list(set(filmography['person'].loc[filmography['imdb_link'] == x['imdb_link']])) for _, x in cast_df.iterrows()]
 cast_df['cast_count'] = cast_df['snl_alums'].str.len()
+cast_df = cast_df[cast_df["cast_count"]>1]
 
 cols_to_keep = ['title','media_type','imdb_link','credits_count','cast_count']
 filmography= filmography.filter(items=cols_to_keep)
 filmography = filmography.drop_duplicates(subset="imdb_link")
 
-filmography_done = pd.merge(filmography, cast_df, on="imdb_link", how="outer")
+filmography_done = pd.merge(filmography, cast_df, on="imdb_link", how="inner")
 print("number of filmography credits: ", filmography_done.shape[0])
 filmography_done.to_csv("snl_movies_credits.csv", index=False)

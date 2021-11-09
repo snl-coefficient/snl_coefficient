@@ -1,0 +1,11 @@
+cd scripts 
+install requirements 
+
+python3 get_imdb_links.py
+python3 scrape_person_filmography.py
+python3 clean_person_filmography.py
+python3 person_snl_credits.py
+python3 calculate_person_coefficient.py
+python3 scrape_movie_data.py
+python3 clean_movie_data.py
+python3 calculate_movie_coefficient.py

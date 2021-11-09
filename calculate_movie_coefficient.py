@@ -4,10 +4,10 @@ import re
 
 ####
 snl_movie_credits = pd.read_csv("snl_movies_credits.csv") # this has data about snl credits
-snl_movie_data = pd.read_csv("cleaned_snl_movie_data.csv") # this has data about the movie
 person_credits_title = pd.read_csv("person_credits_title.csv") # this has role credits info
+performers = pd.read_csv("performers_with_coefficient.csv") # this has person coefficient info 
+snl_movie_data = pd.read_csv("cleaned_snl_movies_data.csv") # this has data about the movie
 snl_movie_data['movie_coefficient'] = ''
-performers = pd.read_csv("performers_with_coefficient.csv")
 
 snl_coefficients = {}
 snl_coefficients = performers.set_index('person').to_dict()['coefficient']
@@ -52,7 +52,7 @@ with open("data/running_snl_movie_coefficient.csv", 'w') as f:
             else:
                 person_num_episodes = int(person_num_episodes)
             if num_episodes != 0:
-                if not person_num_episodes = 0:
+                if not person_num_episodes == 0:
                     percent_episodes = person_num_episodes/num_episodes
                 else:
                     percent_episodes = 1/num_episodes #(assuming they wrote at least one episode)
@@ -67,7 +67,7 @@ with open("data/running_snl_movie_coefficient.csv", 'w') as f:
                 role_coefficient = 2
                 value = person_coefficient * role_coefficient * percent_episodes
             else:
-                print(person, person_coefficient, percent_episodes)
+                #print(person, person_coefficient, percent_episodes)
                 value = person_coefficient * percent_episodes
             person_values.append(value)
         sum_of_values= sum(person_values)
@@ -85,5 +85,9 @@ accurate_movie_data = pd.read_csv("data/running_snl_movie_coefficient.csv")
 sorted_df = accurate_movie_data.sort_values(by='movie_coefficient')
 #sorted_df.to_csv("snl_movie_coefficient.csv", index=False)
 merged_df1 = pd.merge(sorted_df, snl_movie_credits, on="imdb_link", how="outer")
+print(sorted_df.columns.values)
+print(snl_movie_credits.columns.values)
+print(merged_df1.columns)
+print(snl_movie_data.columns.values)
 merged_df2 = pd.merge(merged_df1, snl_movie_data, on="imdb_link", how="outer")
-merged_df2.to_csv("full_data_snl_movie_coefficient.csv", index=False)
+merged_df2.to_csv("full_data_snl_movies_coefficient.csv", index=False)

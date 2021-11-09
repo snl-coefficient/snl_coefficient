@@ -9,8 +9,8 @@ import numpy as np
 def has_numbers(inputString):
      return any(char.isdigit() for char in inputString)
 
-dataframe = pd.read_csv("testing_raw_snl_movies_data.csv")
-mediums = dataframe['media_type'].tolist() #to_list?
+dataframe = pd.read_csv("raw_snl_movies_data.csv") #still some issue in how it's processing data
+mediums = dataframe['media_type'].to_list() #to_list?
 #dataframe['media_type'] = dataframe['media_type'].astype(float)
 all_mediums = []
 for index, row in dataframe.iterrows():
@@ -29,7 +29,7 @@ for index, row in dataframe.iterrows():
         med_txt.write(str(i) + "\n")
     med_txt.close()
 
-production_companies = dataframe['production_companies'].tolist() #to_list?
+production_companies = dataframe['production_companies'].to_list() #to_list?
 #dataframe['media_type'] = dataframe['media_type'].astype(float)
 all_production_companies = []
 for index, row in dataframe.iterrows():
@@ -81,4 +81,4 @@ for index, row in dataframe.iterrows():
     except ValueError:
         pass
 
-dataframe.to_csv("cleaned_snl_movie_data.csv", index=False)
+dataframe.to_csv("cleaned_snl_movies_data.csv", index=False)
