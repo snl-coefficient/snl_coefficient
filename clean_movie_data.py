@@ -1,5 +1,6 @@
 # get a list of media types from making a set of of all the values in all the lists in that column
 # get a list of production companies from making a set of all the values in all the lists in that column
+# still have to clean year_end stuff (should be 2022 if blank). can i get this elsewhere? 
 
 import pandas as pd
 import re
@@ -10,8 +11,7 @@ def has_numbers(inputString):
      return any(char.isdigit() for char in inputString)
 
 dataframe = pd.read_csv("raw_snl_movies_data.csv") #still some issue in how it's processing data
-mediums = dataframe['media_type'].to_list() #to_list?
-#dataframe['media_type'] = dataframe['media_type'].astype(float)
+mediums = dataframe['media_type'].to_list()
 all_mediums = []
 for index, row in dataframe.iterrows():
     list_of_info = dataframe['media_type'].values[row.name]
@@ -28,6 +28,23 @@ for index, row in dataframe.iterrows():
     for i in all_mediums:
         med_txt.write(str(i) + "\n")
     med_txt.close()
+
+all_genres = []
+for index, row in dataframe.iterrows():
+    list_of_info = dataframe['genres'].values[row.name]
+    print(list_of_info)
+    try:
+        list_of_info = ast.literal_eval(list_of_info)
+        for elem in list_of_info:
+            if has_numbers(elem) == False:
+                all_genres.append(elem)
+    except ValueError:
+        pass
+    all_genres = list(set(all_genres))
+    gen_txt = open('data/genres.txt', 'w')
+    for i in all_genres:
+        gen_txt.write(str(i) + "\n")
+    gen_txt.close()
 
 production_companies = dataframe['production_companies'].to_list() #to_list?
 #dataframe['media_type'] = dataframe['media_type'].astype(float)

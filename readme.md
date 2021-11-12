@@ -1,4 +1,9 @@
 # SNL Coefficient 
+## To Do List 
+- Finish the calculate_movie_coefficient
+- Fix the principal_people scraping section 
+- Need to be able to generate media_types.txt and genres.txt
+
 This repository contains all the scripts and data for the SNL Coefficient project. This project attempts to determine a value for cast and crew members' association with *Saturday Night Live*, to then determine how closely associated a particular media property is with the show. 
 
 For the purposes of this project, cast and crew applies to 1) repertory players, 2) featured players, 3) staff writers, and 4) head writers, during the show's period. Data for the **snl_cast_crew.csv** has been collected from Wikipedia, IMDB, and fan sources. 
@@ -34,3 +39,5 @@ The Python scripts can be run in the order listed below to complete the project.
 ## Other Files 
 * **production_companies.txt**: a list of all the production companies that have produced SNL-related media
 * **mediums.txt**: a list of all the media forms (TV Series, TV Special, Podcast Series, etc.) as well as ratings (R, PG-13, TV-14, etc.) represented in SNL-related media 
+* **snl_alums.txt** - should make in the first script 
+* **genres.txt**: a list of all the genres represented in SNL-related media. 
