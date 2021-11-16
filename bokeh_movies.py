@@ -11,7 +11,7 @@ from bokeh.plotting import figure
 movies = pd.read_csv("full_data_snl_movies_coefficient.csv")
 print(len(movies))
 snl_cast_crew = pd.read_csv("snl_cast_crew.csv")
-snl_alums_list = snl_cast_crew['person'].to_list()
+snl_alums_list = snl_cast_crew['person'].to_list().sort()
 snl_alums_list.append("All")
 snl_media = open(join(dirname(__file__), 'data/snl_media.txt')).read().split()
 movies["color"] = "grey"
@@ -45,7 +45,7 @@ TOOLTIPS=[
     ("Title", "@title"),
     ("Year (Start)", "@year_start"),
     ("Genre", "@genres"),
-    ("Medium", "@mediums"),
+    ("Medium", "@medium"),
     ("Cast Count", "@cast_count"),
     ("Coefficient", "@movie_coefficient")
 ]
@@ -68,11 +68,11 @@ def select_movies():
     print("len selected")
     print(len(selected))
     if (genre_val != "All"):
-        selected = selected[selected.Genre.str.contains(genre_val)==True]
+        selected = selected[selected.genres.str.contains(genre_val)==True]
     if (medium_val != "All"):
-        selected = selected[selected.Medium.str.contains(genre_val)==True]
+        selected = selected[selected.medium.str.contains(medium_val)==True]
     if (snl_alumni_val != "All"):
-        selected = selected[selected.Cast_List.str.contains(snl_alumni_val)==True]
+        selected = selected[selected.snl_alums.str.contains(snl_alumni_val)==True]
     return selected
 
 
@@ -92,7 +92,7 @@ def update():
         year_start=df["year_start"],
         alpha=df["alpha"],
         movie_coefficient=df["movie_coefficient"],
-        mediums=df["medium"],
+        medium=df["medium"],
         genres=df["genres"]
     )
 
