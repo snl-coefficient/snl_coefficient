@@ -1,8 +1,22 @@
-Podcast Series
-TV Short
-TV Series
-Video Game
 TV Special
-TV Movie
 TV Mini Series
+Music Video
+XX
+GG
+RR
 Video
+TV-MATV-MA
+UnratedUnrated
+TV Movie
+TV-GTV-G
+Podcast Series
+PGPG
+TV Short
+MM
+TV Series
+TV-PGTV-PG
+Video Game
+TV-YTV-Y
+TT
+Not RatedNot Rated
+ApprovedApproved

@@ -12,6 +12,7 @@ def has_numbers(inputString):
 
 dataframe = pd.read_csv("raw_snl_movies_data.csv") #still some issue in how it's processing data
 mediums = dataframe['media_type'].to_list()
+mediums.sort()
 all_mediums = []
 for index, row in dataframe.iterrows():
     list_of_info = dataframe['media_type'].values[row.name]
@@ -24,6 +25,7 @@ for index, row in dataframe.iterrows():
     except ValueError:
         pass
     all_mediums = list(set(all_mediums))
+    all_mediums.sort()
     med_txt = open('data/mediums.txt', 'w')
     for i in all_mediums:
         med_txt.write(str(i) + "\n")

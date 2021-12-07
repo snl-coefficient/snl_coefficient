@@ -32,7 +32,6 @@ The Python scripts can be run in the order listed below to complete the project.
 * **raw_snl_movies_data.csv**: title,media_type,imdb_link,credits_count,snl_alums,cast_count,genres,stars,num_episodes,principal_people,production_companies
 * **running_snl_movies_data.csv**:imdb_link,genres,stars,media_type,num_episodes,principal_people,production_companies 
 * **cleaned_snl_movies_data.csv**: imdb_link,genres,stars,media_type,num_episodes,principal_people,production_companies,medium,year_start,year_end
-
 * **snl_movies_coefficient.csv**:imdb_link,genres,stars,media_type,num_episodes,principal_people,production_companies,medium,year_start,year_end,movie_coefficient
 **full_data_snl_movie_coefficient.csv**: imdb_link,movie_coefficient_x,title,media_type_x,credits_count,snl_alums,cast_count,genres,stars,media_type_y,num_episodes,principal_people,production_companies,medium,year_start,year_end,movie_coefficient_y
 

@@ -69,7 +69,7 @@ def get_movie_details(dataframe, row, column):
                 principal_people.append(indiv)
     except:
         principal_people = None
-    dataframe.at[z,"principal_people"] = creators
+    dataframe.at[z,"principal_people"] = principal_people
     try:
         production_companies_captured = soup.find("li", {"data-testid":"title-details-companies"})
         production_companies_reviewed = production_companies_captured.find_all('a')
@@ -77,10 +77,10 @@ def get_movie_details(dataframe, row, column):
         for production in production_companies_reviewed:
             production = production.get_text(strip=False)
             production_companies.append(production)
-            production_companies.remove('Production companies')
+        production_companies.remove('Production companies')
     except:
         production_companies = None
-    dataframe.at[z,"production_companies"]
+    dataframe.at[z,"production_companies"] = production_companies
     time.sleep(5)
 
 #######
