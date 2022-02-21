@@ -20,6 +20,9 @@ The Python scripts can be run in the order listed below to complete the project.
 * **clean_movie_data.py** uses **snl_movies_data.csv** to clean for the media type and year information and saves it as **cleaned_snl_movies_data.csv**. 
 * **calculate_movie_coefficient.py** uses **snl_movie_credits.csv**, **cleaned_snl_movie_data.csv**, **person_credits_title.csv**, and **performers_with_coefficient.csv** to calculate the movie coefficient, and saves it as a column in **full_data_snl_movie_coefficient.csv**.
 
+## Other 
+* **calculate_network_graph.py** uses **full_data_snl_movies_coefficient.csv** to calculate the frequency of pairs for network graph visualization. 
+
 ## CSV Files 
 * **snl_alums.csv**:person,year_start,year_end,num_seasons_writer,num_seasons_headwriter,num_seasons_actor	num_seasons_rep,num_seasons_featured,num_seasons_middle,num_seasons_weekend_update,num_episodes_weekend_updates,best_of,num_episodes_hosted
 * **performers_filmography.csv**: person,credit_type,year,title,imdb_link,media_type,total_episode_count,add_info

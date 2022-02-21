@@ -89,6 +89,8 @@ sorted_df = accurate_movie_data.sort_values(by='movie_coefficient')
 merged_df2 = pd.merge(sorted_df, snl_movie_data, on="imdb_link", how="outer")
 #sorted_df = pd.merge(merged_df1, snl_movie_data, on="imdb_link", how="outer")
 merged_df2.to_csv("full_data_snl_movies_coefficient.csv", index=False)
+snl_movie_by_coefficient = merged_df2['movie_coefficient'] >= 1
+snl_movie_by_coefficient.to_csv("definitive_snl_movies.csv", index=False)
 print("median: ", merged_df2['movie_coefficient'].median())
 print("mean: ", merged_df2['movie_coefficient'].mean())
 print("mode: ", merged_df2['movie_coefficient'].mode())

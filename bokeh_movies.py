@@ -14,7 +14,7 @@ snl_alums_list = snl_cast_crew['person'].to_list()
 snl_alums_list.sort()
 snl_alums_list.append("All")
 #snl_alums_list.sort()
-snl_media = open(join(dirname(__file__), 'data/snl_media.txt')).read().split()
+snl_media = open(join(dirname(__file__), 'data/snl_associated_media.txt')).read().split()
 movies["color"] = "grey"
 movies.loc[movies.imdb_link.isin(snl_media), "color"] = "purple"
 movies["alpha"] = 1
