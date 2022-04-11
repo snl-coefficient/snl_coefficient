@@ -1,5 +1,6 @@
 # from here: https://github.com/bokeh/bokeh/tree/branch-3.0/examples/app/movies
 
+import os
 from os.path import dirname, join
 import numpy as np
 import pandas as pd
@@ -9,14 +10,15 @@ from bokeh.models import ColumnDataSource, Div, Select, Slider, TextInput, Custo
 from bokeh.plotting import figure
 
 path = os.getcwd()
-path = path.rsplit('/')[0]
+print(path)
+#path = path.rsplit('/')[0]
 movies = pd.read_csv(f"{path}/data/full_data_snl_movies_coefficient.csv")
 snl_cast_crew = pd.read_csv(f"{path}/data/snl_cast_crew.csv")
 snl_alums_list = snl_cast_crew['person'].to_list()
 snl_alums_list.sort()
 snl_alums_list.append("All")
 #snl_alums_list.sort()
-snl_media = open(join(dirname(__file__), f"{path}/snl_associated_media.txt")).read().split()
+snl_media = open(join(dirname(__file__), f"{path}/data/snl_associated_media.txt")).read().split()
 movies["color"] = "grey"
 movies.loc[movies.imdb_link.isin(snl_media), "color"] = "purple"
 movies["alpha"] = 1
@@ -34,7 +36,7 @@ cast_count = Slider(title="Minimum number of SNL alums", value=2, start=2, end=1
 min_year = Slider(title="Year released", start=1975, end=2022, value=1970, step=1)
 max_year = Slider(title="End Year released", start=1975, end=2022, value=2022, step=1)
 genre = Select(title="Genre", value="All",
-               options=open(join(dirname(__file__), f"{path}/genres.txt")).read().split())
+               options=open(join(dirname(__file__), f"{path}/data/genres.txt")).read().split())
 medium = Select(title="Medium", value="All",
                options=[i.strip() for i in open(f"{path}/data/media_types.txt").readlines()]) 
 snl_alumni = Select(title="SNL Alum", value="All", options=snl_alums_list)

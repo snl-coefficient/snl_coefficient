@@ -500,7 +500,7 @@ trio==0.19.0
 trio-websocket==0.9.2
 typed-ast @ file:///Users/runner/miniforge3/conda-bld/typed-ast_1643045836743/work
 typer==0.3.2
-typing-extensions==3.7.4.3
+typing_extensions==4.1.1
 ujson @ file:///Users/runner/miniforge3/conda-bld/ujson_1640096014448/work
 umap-learn==0.5.1
 unicodecsv==0.14.1
