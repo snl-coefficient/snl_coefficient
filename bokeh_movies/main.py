@@ -8,13 +8,15 @@ from bokeh.layouts import column, row
 from bokeh.models import ColumnDataSource, Div, Select, Slider, TextInput, CustomJS, Toggle
 from bokeh.plotting import figure
 
-movies = pd.read_csv("data/full_data_snl_movies_coefficient.csv")
-snl_cast_crew = pd.read_csv("data/snl_cast_crew.csv")
+path = os.getcwd()
+path = path.rsplit('/')[0]
+movies = pd.read_csv(f"{path}/data/full_data_snl_movies_coefficient.csv")
+snl_cast_crew = pd.read_csv(f"{path}/data/snl_cast_crew.csv")
 snl_alums_list = snl_cast_crew['person'].to_list()
 snl_alums_list.sort()
 snl_alums_list.append("All")
 #snl_alums_list.sort()
-snl_media = open(join(dirname(__file__), 'data/snl_associated_media.txt')).read().split()
+snl_media = open(join(dirname(__file__), f"{path}/snl_associated_media.txt")).read().split()
 movies["color"] = "grey"
 movies.loc[movies.imdb_link.isin(snl_media), "color"] = "purple"
 movies["alpha"] = 1
@@ -32,9 +34,9 @@ cast_count = Slider(title="Minimum number of SNL alums", value=2, start=2, end=1
 min_year = Slider(title="Year released", start=1975, end=2022, value=1970, step=1)
 max_year = Slider(title="End Year released", start=1975, end=2022, value=2022, step=1)
 genre = Select(title="Genre", value="All",
-               options=open(join(dirname(__file__), 'data/genres.txt')).read().split())
+               options=open(join(dirname(__file__), f"{path}/genres.txt")).read().split())
 medium = Select(title="Medium", value="All",
-               options=[i.strip() for i in open("data/media_types.txt").readlines()]) 
+               options=[i.strip() for i in open(f"{path}/data/media_types.txt").readlines()]) 
 snl_alumni = Select(title="SNL Alum", value="All", options=snl_alums_list)
 x_axis = Select(title="X Axis", options=sorted(axis_map.keys()), value="Year (Start)")
 y_axis = Select(title="Y Axis", options=sorted(axis_map.keys()), value="SNL Coefficient")
@@ -77,7 +79,7 @@ def select_movies():
         selected = selected[selected.snl_alums.str.contains(snl_alumni_val)==True]
     if (specifics_val != "None"):
        if specifics_val == "SNL Feature Films":         
-           feature_films = [i.strip() for i in open("data/snl_feature_films.txt").readlines()]
+           feature_films = [i.strip() for i in open(f"{path}/data/snl_feature_films.txt").readlines()]
            print(feature_films)
            selected = selected[selected['imdb_link'].isin(feature_films)]
        else:
