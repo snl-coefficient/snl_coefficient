@@ -7,6 +7,7 @@ from bs4  import NavigableString
 import pandas as pd
 from urllib.parse import urlencode
 import urllib
+import os
 
 #######
 def get_web_page_content(url):
@@ -50,8 +51,12 @@ def get_person_filmography(dataframe, row, column):
     get_movie_info(soup, person, 'filmo-row even', filmography)
 
 ####
+path = os.getcwd()
+path = path.split('/')
+path = '/'.join(path[:-1])
+
 filmography = pd.DataFrame(columns=['person','credit_type','year','title','imdb_link','media_type','total_episode_count','add_info'])
-performers = pd.read_csv("snl_alums.csv")
+performers = pd.read_csv(f"{path}/data/snl_alums.csv")
 performers.apply(lambda row: get_person_filmography(performers, row, "imdb_link"), axis=1)
 
-filmography.to_csv("performers_filmography.csv", index=False)
+filmography.to_csv(f"{path}/data/performers_filmography.csv", index=False)

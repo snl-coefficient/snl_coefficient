@@ -8,11 +8,16 @@ import urllib
 import numpy as np
 import re
 from string import digits
+import os
 
-filmography = pd.read_csv("performers_filmography_cleaned.csv")
+path = os.getcwd()
+path = path.split('/')
+path = '/'.join(path[:-1])
+
+filmography = pd.read_csv(f"{path}/data/performers_filmography_cleaned.csv")
 snl_credits = filmography[filmography["title"]=="Saturday Night Live"]
-snl_credits.to_csv("only_snl_filmography.csv")
-snl_credits = pd.read_csv("only_snl_filmography.csv")
+snl_credits.to_csv(f"{path}/data/only_snl_filmography.csv")
+snl_credits = pd.read_csv(f"{path}/data/only_snl_filmography.csv")
 
 actors = pd.read_csv("snl_alums.csv")
 actors['num_episodes_writer'] = ''
@@ -38,4 +43,4 @@ def get_snl_counts(dataframe, row):
     print(person, num_episodes_actor, num_episodes_writer)		
     
 actors.apply(lambda row: get_snl_counts(actors, row), axis=1)
-actors.to_csv("actors_with_snl_credits.csv", index=False)
+actors.to_csv(f"{path}/data/actors_with_snl_credits.csv", index=False)

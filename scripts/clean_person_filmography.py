@@ -8,6 +8,7 @@ import urllib
 import numpy as np
 import re
 from string import digits
+import os
 
 ####
 def get_crew_list(dataframe, row):
@@ -91,8 +92,12 @@ def fill_all_years(dataframe, row):
           dataframe.at[row.name,'year_end'] = str(max(only_numbers))
 
 #######
-performers = pd.read_csv("snl_alums.csv")
-filmography_orig = pd.read_csv("performers_filmography.csv")
+path = os.getcwd()
+path = path.split('/')
+path = '/'.join(path[:-1])
+
+performers = pd.read_csv(f"{path}/data/snl_alums.csv")
+filmography_orig = pd.read_csv(f"{path}/data/performers_filmography.csv")
 
 print("adding end and start years")
 filmography_orig.apply(lambda row: add_end_years(filmography_orig, row, 'year'), axis=1)
@@ -111,7 +116,7 @@ print("number of filmography credits: ", filmography_credits.shape[0])
 filmography_credits.apply(lambda row: filter_out_credit_types(filmography_credits, row, 'keep?'), axis=1)
 filmography_credits = filmography_credits[filmography_credits['keep?']=='keep_credit']
 filmography_credits = filmography_credits[filmography_credits['year_start'] != 'nan']
-filmography_credits.to_csv("filmography_credits.csv", index=False)
+filmography_credits.to_csv(f"{path}/data/filmography_credits.csv", index=False)
 print("number of filmography credits: ", filmography_credits.shape[0])
 
 snl_starts = {}
@@ -136,12 +141,12 @@ filter_out_start_year(filmography_years, snl_starts, snl_ends, 'keep?')
 filmography_cleaned = filmography_years[filmography_years['keep?']=='keep_year']
 filmography_cleaned.drop('keep?', axis=1, inplace=True)
 filmography_cleaned['imdb_link'] = filmography_cleaned['imdb_link'].str.split("?").str[0]
-filmography_cleaned.to_csv("performers_filmography_cleaned.csv", index=False)
+filmography_cleaned.to_csv(f"{path}/data/performers_filmography_cleaned.csv", index=False)
 print("number of filmography credits: ", filmography_cleaned.shape[0])
 
 cols_to_keep = ['person','credit_type','media_type','title','imdb_link','total_episode_count']
 filmography = filmography_cleaned.filter(items=cols_to_keep)
-filmography.to_csv("person_credits_title.csv", index=False)
+filmography.to_csv(f"{path}/data/person_credits_title.csv", index=False)
 
 filmography['snl_alums'] = ''
 filmography['credits_count'] = ''
@@ -159,4 +164,4 @@ filmography = filmography.drop_duplicates(subset="imdb_link")
 
 filmography_done = pd.merge(filmography, cast_df, on="imdb_link", how="inner")
 print("number of filmography credits: ", filmography_done.shape[0])
-filmography_done.to_csv("snl_movies_credits.csv", index=False)
+filmography_done.to_csv(f"{path}/data/snl_movies_credits.csv", index=False)

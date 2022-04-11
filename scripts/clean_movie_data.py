@@ -6,11 +6,16 @@ import pandas as pd
 import re
 import ast
 import numpy as np
+import os
 
 def has_numbers(inputString):
      return any(char.isdigit() for char in inputString)
+     
+path = os.getcwd()
+path = path.split('/')
+path = '/'.join(path[:-1])     
 
-dataframe = pd.read_csv("raw_snl_movies_data.csv") #still some issue in how it's processing data
+dataframe = pd.read_csv(f"{path}/data/raw_snl_movies_data.csv") #still some issue in how it's processing data
 mediums = dataframe['media_type'].to_list()
 mediums.sort()
 all_mediums = []
@@ -26,7 +31,7 @@ for index, row in dataframe.iterrows():
         pass
     all_mediums = list(set(all_mediums))
     all_mediums.sort()
-    med_txt = open('data/mediums.txt', 'w')
+    med_txt = open(f'{path}/data/mediums.txt', 'w')
     for i in all_mediums:
         med_txt.write(str(i) + "\n")
     med_txt.close()
@@ -43,7 +48,7 @@ for index, row in dataframe.iterrows():
     except ValueError:
         pass
     all_genres = list(set(all_genres))
-    gen_txt = open('data/genres.txt', 'w')
+    gen_txt = open(f'{path}/data/genres.txt', 'w')
     for i in all_genres:
         gen_txt.write(str(i) + "\n")
     gen_txt.close()
@@ -60,7 +65,7 @@ for index, row in dataframe.iterrows():
     except:
         pass
 all_production_companies = list(set(all_production_companies)) #use this list to create a mediums list
-prod_txt = open('data/production_companies.txt', 'w')
+prod_txt = open(f'{path}/data/production_companies.txt', 'w')
 for i in all_production_companies:
     prod_txt.write(str(i) + "\n")
 prod_txt.close()
@@ -100,4 +105,4 @@ for index, row in dataframe.iterrows():
     except ValueError:
         pass
 
-dataframe.to_csv("cleaned_snl_movies_data.csv", index=False)
+dataframe.to_csv(f"{path}/data/cleaned_snl_movies_data.csv", index=False)

@@ -1,14 +1,19 @@
 from bokeh.plotting import figure, show
 import pandas as pd 
 from pandas import Series
+import os
 
-snl_movies = pd.read_csv("definitive_snl_movies.csv")
+path = os.getcwd()
+path = path.split('/')
+path = '/'.join(path[:-1])   
+
+snl_movies = pd.read_csv(f"{path}/data/definitive_snl_movies.csv")
 snl_movies['genre-single'] = snl_movies['genres'].str.strip('[]')
 snl_movies['genre-single'] = snl_movies['genre-single'].str.strip("'")
 snl_movies['genre-single'] = snl_movies['genre-single'].str.split(",")
 snl_movies = snl_movies.explode("genre-single").reset_index(drop=True)
 snl_movies['genre-single'] = snl_movies['genre-single'].str.strip("'")
-snl_movies.to_csv("definitive_snl_movies_single_genre.csv", index=False)
+snl_movies.to_csv(f"{path}/data/definitive_snl_movies_single_genre.csv", index=False)
 
 genres = list(set(snl_movies['genre-single'].to_list()))
 media = list(set(snl_movies['medium'].to_list()))

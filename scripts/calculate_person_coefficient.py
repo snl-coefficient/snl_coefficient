@@ -1,12 +1,17 @@
 # load the performers.csv
 import pandas as pd 
 import csv 
+import os
 
-performers = pd.read_csv("actors_with_snl_credits.csv")
+path = os.getcwd()
+path = path.split('/')
+path = '/'.join(path[:-1])
+
+performers = pd.read_csv(f"{path}/data/actors_with_snl_credits.csv")
 performers.fillna(0, inplace=True)
 performers['num_episodes_other'] = ''
 performers['coefficient'] = ''
-snl_credits = pd.read_csv("only_snl_filmography.csv")
+snl_credits = pd.read_csv(f"{path}/data/only_snl_filmography.csv")
 snl_credits.fillna(0, inplace=True)
 
 def get_coefficient(dataframe, row, column):
@@ -65,7 +70,7 @@ def get_coefficient(dataframe, row, column):
     if person == "Lorne Michaels":
         dataframe.at[row.name,column] = 1
 performers.apply(lambda row: get_coefficient(performers, row, "coefficient"), axis=1)
-performers.to_csv("performers_with_coefficient.csv", index=False)
+performers.to_csv(f"{path}/data/performers_with_coefficient.csv", index=False)
 
 
 

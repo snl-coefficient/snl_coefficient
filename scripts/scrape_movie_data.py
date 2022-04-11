@@ -84,7 +84,11 @@ def get_movie_details(dataframe, row, column):
     time.sleep(5)
 
 #######
-movies = pd.read_csv("snl_movies_credits.csv")
+path = os.getcwd()
+path = path.split('/')
+path = '/'.join(path[:-1])
+
+movies = pd.read_csv(f"{path}/data/snl_movies_credits.csv")
 movies['genres'] = ''
 movies['stars'] = ''
 movies['media_type'] = ''
@@ -103,4 +107,4 @@ movies.apply(lambda row: get_movie_details(movies, row, "imdb_link"), axis=1)
 #    movies = pd.concat([movies, already_finished], ignore_index=True)
 #except:
 #    print("could not append")
-movies.to_csv("raw_snl_movies_data.csv", index=False)
+movies.to_csv(f"{path}/data/raw_snl_movies_data.csv", index=False)
