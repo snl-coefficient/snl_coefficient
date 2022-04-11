@@ -8,8 +8,8 @@ from bokeh.layouts import column, row
 from bokeh.models import ColumnDataSource, Div, Select, Slider, TextInput, CustomJS, Toggle
 from bokeh.plotting import figure
 
-movies = pd.read_csv("full_data_snl_movies_coefficient.csv")
-snl_cast_crew = pd.read_csv("snl_cast_crew.csv")
+movies = pd.read_csv("data/full_data_snl_movies_coefficient.csv")
+snl_cast_crew = pd.read_csv("data/snl_cast_crew.csv")
 snl_alums_list = snl_cast_crew['person'].to_list()
 snl_alums_list.sort()
 snl_alums_list.append("All")
