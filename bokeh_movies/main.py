@@ -42,7 +42,7 @@ medium = Select(title="Medium", value="All",
 snl_alumni = Select(title="SNL Alum", value="All", options=snl_alums_list)
 x_axis = Select(title="X Axis", options=sorted(axis_map.keys()), value="Year (Start)")
 y_axis = Select(title="Y Axis", options=sorted(axis_map.keys()), value="SNL Coefficient")
-specifics = Select(title="Curated Lists", value="None",options=['None','SNL Feature Films', 'Happy Madison Productions', 'NBC']) 
+specifics = Select(title="Curated Lists", value="None",options=['None','SNL-Related Media','Non-SNL-Related Media','SNL Feature Films', 'Happy Madison Productions', 'NBC']) 
 title_input = TextInput(value="", title="Search for Media:")
 
 source = ColumnDataSource(data=dict(x=[], y=[], color=[], title=[], year=[], alpha=[]))
@@ -84,6 +84,10 @@ def select_movies():
            feature_films = [i.strip() for i in open(f"{path}/data/snl_feature_films.txt").readlines()]
            print(feature_films)
            selected = selected[selected['imdb_link'].isin(feature_films)]
+       elif specifics_val == 'SNL-Related Media':
+            selected = selected[selected['imdb_link'].isin(snl_media)]
+       elif specifics_val == 'Non-SNL-Related Media': 
+            selected = selected[~selected['imdb_link'].isin(snl_media)]
        else:
            selected = selected[selected.production_companies.str.contains(specifics_val)==True]
     if (title_input_val != ""):

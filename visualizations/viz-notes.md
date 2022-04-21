@@ -20,7 +20,7 @@ https://codepen.io/DesmondW/details/DJtxH
 - use media_types.txt
 
 # Who are the most frequent collaborating pairs who appeared on SNL together? 
-network of thrones 
+network of thrones - maybe I should filter out the TV shows? Only focus on films? 
 https://melaniewalsh.github.io/Intro-Cultural-Analytics/06-Network-Analysis/01-Network-Analysis.html
 https://www.kaggle.com/mmmarchetti/game-of-thrones-network-analysis
 https://madams006.github.io/GoT_Network_Analysis_DataCamp.html
@@ -34,6 +34,7 @@ Look at films with coefficient above 1
 When are they produced? 
 Who is involved? 
 How does it compare with the range of years on the show? 
+- What percentage of media is produced DURING a person's range and AFTER a person's range on the show? 
 
 # After comedy, what are the top SNL coefficient genres? 
 Bar chart this - use tidy_split to build a bar graph of various genres, and then show the top ones (of SNL movies with a coefficient higher than 1, and without) 
@@ -42,7 +43,12 @@ Bar chart this - use tidy_split to build a bar graph of various genres, and then
 Look at the founding of Broadway Video & Lorne Michaels' films 
 
 # How many Lorne pieces don’t qualify as SNL media? (How many xx pieces)
-Is this Broadway Video specific? 
+Is this Broadway Video specific? Or how much of Lorne's filmography? 
 
 # What other actors do a MAJORITY above the SNL coefficient)
 For an actor's entire filmography (# of IMDB links in their filmography with coefficients above 1)/(# of IMDB links in their filmography)
+For an actor's potential SNL filmography (# of IMDB links in their filmography with coefficients above 1)/(# of IMDB links that could potentially be SNL films)
+
+# What Genres do SNL alums work in? 
+For each person's filmography:
+https://upenndigitalscholarship.github.io/jekyll-bokeh-gr/adultfiction/ 
