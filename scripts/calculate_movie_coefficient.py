@@ -64,7 +64,6 @@ with open(f"{path}/data/running_snl_movie_coefficient.csv", 'w') as f:
             else:
                 percent_episodes = 1
             person_coefficient = snl_coefficients.get(person)
-            #print(person, person_coefficient)
             if person in principal_people:
                 role_coefficient = 2
                 value = person_coefficient * role_coefficient * percent_episodes
@@ -72,7 +71,6 @@ with open(f"{path}/data/running_snl_movie_coefficient.csv", 'w') as f:
                 role_coefficient = 2
                 value = person_coefficient * role_coefficient * percent_episodes
             else:
-                #print(person, person_coefficient, percent_episodes)
                 value = person_coefficient * percent_episodes
             person_values.append(value)
         sum_of_values= sum(person_values)

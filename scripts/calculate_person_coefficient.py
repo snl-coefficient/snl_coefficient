@@ -26,7 +26,7 @@ def get_coefficient(dataframe, row, column):
         other_episode_counts = credit_dataframe["total_episode_count"].to_list()
         other = sum(other_episode_counts)
         performers.at[row.name,'num_episodes_other'] = other
-        other = other/913
+        other = other/934
         other = .1 * other
     else:
         other = 0
@@ -50,14 +50,14 @@ def get_coefficient(dataframe, row, column):
     host = num_episodes_hosted/17 #(the highest number of times one has hosted)
     host = int(.1 * host)
     try:  
-        A = num_seasons/47 
+        A = num_seasons/48 
         B = num_seasons_rep/num_seasons 
         C = (num_seasons_featured + num_seasons_middle)/num_seasons
         E = num_seasons_weekend_update/num_seasons
-        F = num_episodes_weekend_update/913#num_episodes
+        F = num_episodes_weekend_update/934#num_episodes
         I = num_seasons_headwriter/num_seasons
-        J = num_episodes_writer/913
-        K = num_episodes_actor/913
+        J = num_episodes_writer/934
+        K = num_episodes_actor/934
         host_coefficient = int(host + best_of)
         coefficient = host_coefficient + (.15*F) + (.15*I) + .25*(other + (.46*K)+(.44*J)) + .25*((.2*A)+(.36* B)+(.34*C)) #+ (.1*E)
         #print(person, num_seasons, coefficient, A, B, C, E, F, I, J, K)

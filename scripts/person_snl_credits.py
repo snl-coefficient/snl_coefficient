@@ -19,7 +19,7 @@ snl_credits = filmography[filmography["title"]=="Saturday Night Live"]
 snl_credits.to_csv(f"{path}/data/only_snl_filmography.csv")
 snl_credits = pd.read_csv(f"{path}/data/only_snl_filmography.csv")
 
-actors = pd.read_csv("snl_alums.csv")
+actors = pd.read_csv(f"{path}/data/snl_alums.csv")
 actors['num_episodes_writer'] = ''
 actors['num_episodes_actor'] = ''
 

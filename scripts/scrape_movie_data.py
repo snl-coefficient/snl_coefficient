@@ -30,7 +30,7 @@ def get_movie_details(dataframe, row, column):
         print("sleep over")
         soup = get_web_page_content(url)
     try:
-        genres_captured = soup.find_all("a",class_="GenresAndPlot__GenreChip-cum89p-3 fzmeux ipc-chip ipc-chip--on-baseAlt")
+        genres_captured = soup.find_all("a",class_="sc-16ede01-3 bYNgQ ipc-chip ipc-chip--on-baseAlt")
         genres = []
         for genre in genres_captured:
             genre = genre.get_text(strip=False)
@@ -44,12 +44,13 @@ def get_movie_details(dataframe, row, column):
         stars.append(elem.string)
     dataframe.at[z,"stars"] = stars
     try:
-        media_type_captured = soup.find("div",{"class":"TitleBlock__TitleMetaDataContainer-sc-1nlhx7j-2 hWHMKr"})#.get_text(strip=False)
+        media_type_captured = soup.find("div",{"class":"sc-80d4314-2 iJtmbR"})#.get_text(strip=False)
         media_type_reviewed = media_type_captured.find_all('li')
         media_type = []
         for media in media_type_reviewed:
             media = media.get_text(strip=False)
             media_type.append(media)
+        print(media_type)
     except:
         media_type = None
     dataframe.at[z,"media_type"] = media_type

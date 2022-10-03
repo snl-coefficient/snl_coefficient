@@ -8,6 +8,5 @@ python3 person_snl_credits.py
 python3 calculate_person_coefficient.py
 python3 scrape_movie_data.py
 python3 clean_movie_data.py
-python3 calculate_movie_coefficient.py
 
 cd ..

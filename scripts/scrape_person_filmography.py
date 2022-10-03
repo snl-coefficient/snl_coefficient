@@ -46,9 +46,12 @@ def get_person_filmography(dataframe, row, column):
     person = dataframe["person"].values[z]
     print(person)
     imdb_link = dataframe[column].values[z]
-    soup = get_web_page_content(imdb_link)
-    get_movie_info(soup, person, 'filmo-row odd', filmography)
-    get_movie_info(soup, person, 'filmo-row even', filmography)
+    try:
+        soup = get_web_page_content(imdb_link)
+        get_movie_info(soup, person, 'filmo-row odd', filmography)
+        get_movie_info(soup, person, 'filmo-row even', filmography)
+    except:
+        print('failed!')
 
 ####
 path = os.getcwd()

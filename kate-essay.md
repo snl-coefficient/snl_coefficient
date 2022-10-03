@@ -1,7 +1,7 @@
 Mean Girls is a *Saturday Night Live* film, and other data findings 
 ==================================================================
 
-Emily Esten and Kathrine Esten
+By Emily Esten and Kathrine Esten
 
 [this is just a test - under construction]
 

@@ -9,7 +9,7 @@ path = path.split('/')
 path = '/'.join(path[:-1])
     
 snl_movie_data = pd.read_csv(f"{path}/data/full_data_snl_movies_coefficient.csv")
-alums_count['snl_alums'] = alums_count['snl_alums'].apply(eval)
+snl_movie_data['snl_alums'] = snl_movie_data['snl_alums'].apply(eval)
 pairs_list = []
 for index, row in snl_movie_data.iterrows():
     snl_alums = snl_movie_data['snl_alums'].values[index]

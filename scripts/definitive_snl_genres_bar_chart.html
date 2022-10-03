@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.17.0"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": "bar", "encoding": {"x": {"field": "count", "type": "quantitative"}, "y": {"field": "genres", "sort": "-x", "type": "nominal"}}}, {"mark": {"type": "text", "align": "left", "baseline": "middle", "dx": 3}, "encoding": {"text": {"field": "count", "type": "quantitative"}, "x": {"field": "count", "type": "quantitative"}, "y": {"field": "genres", "sort": "-x", "type": "nominal"}}}], "data": {"name": "data-0c811f8e18508b219aeb010ab0c1eb02"}, "height": 900, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json", "datasets": {"data-0c811f8e18508b219aeb010ab0c1eb02": [{"genres": "Comedy", "count": 129}, {"genres": "Documentary", "count": 24}, {"genres": "Music", "count": 21}, {"genres": "News", "count": 17}, {"genres": "Short", "count": 11}, {"genres": "Drama", "count": 10}, {"genres": "", "count": 9}, {"genres": "Animation", "count": 9}, {"genres": "Adventure", "count": 7}, {"genres": "Biography", "count": 6}, {"genres": "Talk-Show", "count": 4}, {"genres": "History", "count": 4}, {"genres": "Action", "count": 4}, {"genres": "Mystery", "count": 4}, {"genres": "Romance", "count": 4}, {"genres": "Fantasy", "count": 4}, {"genres": "Family", "count": 3}, {"genres": "Musical", "count": 3}, {"genres": "Reality-TV", "count": 3}, {"genres": "Crime", "count": 2}, {"genres": "Sci-Fi", "count": 2}, {"genres": "Horror", "count": 1}, {"genres": "Sport", "count": 1}, {"genres": "Western", "count": 1}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

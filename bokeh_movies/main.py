@@ -33,8 +33,8 @@ desc = Div(text=open(join(dirname(__file__), "description.html")).read(), sizing
 # Create Input controls
 min_coefficient = Slider(title="Minimum coefficient", value=0, start=0, end=20, step=.01) 
 cast_count = Slider(title="Minimum number of SNL alums", value=2, start=2, end=100, step=1)
-min_year = Slider(title="Year released", start=1975, end=2022, value=1970, step=1)
-max_year = Slider(title="End Year released", start=1975, end=2022, value=2022, step=1)
+min_year = Slider(title="Year released", start=1947, end=2023, value=1970, step=1)
+max_year = Slider(title="End Year released", start=1947, end=2023, value=2022, step=1)
 genre = Select(title="Genre", value="All",
                options=open(join(dirname(__file__), f"{path}/data/genres.txt")).read().split())
 medium = Select(title="Medium", value="All",
