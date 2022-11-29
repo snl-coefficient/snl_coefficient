@@ -14,7 +14,7 @@ pairs_list = []
 for index, row in snl_movie_data.iterrows():
     snl_alums = snl_movie_data['snl_alums'].values[index]
     snl_alums.sort()
-    pairs = list(combinations(list_snl_alums, 2))
+    pairs = list(combinations(snl_alums, 2))
     for pair in pairs: 
         pairs_list.append(pair)
 frequencyDict = collections.Counter(pairs_list)
